@@ -1,0 +1,44 @@
+{% extends "udeskapi/apiv2/callcenter/callcenter.html" %}
+{% block center_right_body %}
+    <div class="container mt-3">
+        <table>
+            <tr>
+                <td><h4>创建外呼任务</h4></td>
+                <td>
+                    <span class="label-size label-color">{{ encrypt }}</span>
+                    <span class="label-size label-color">{{ request_type }}</span>
+                </td>
+            </tr>
+        </table>
+
+
+        <form method="post" action="{% url '[udeskapi]:call10' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                {{ form.company_subdomain }}
+                <div class="input-group-append">
+                    <span class="input-group-text">.udesk.cn</span>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                {{ form.start_time }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.end_time }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.open_api_token }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.admin_email }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.timestamp }}
+            </div>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+        <p>{{ reponse }}</p>
+        <p>{{ requset_url }}</p>
+    </div>
+
+{% endblock %}

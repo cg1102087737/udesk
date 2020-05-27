@@ -1,0 +1,18 @@
+{% extends "home.html" %}
+{% block center_body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group" style="max-height:700px;overflow-y:scroll">
+                <a href="{% url '[udeskapi]:user_group1' %}" class="list-group-item list-group-item-action">获取客服组列表</a>
+                <a href="{% url '[udeskapi]:user_group2' %}" class="list-group-item list-group-item-action">获取客服组下客服</a>
+                <a href="{% url '[udeskapi]:user_group3' %}" class="list-group-item list-group-item-action">创建客服组</a>
+                <a href="{% url '[udeskapi]:user_group4' %}" class="list-group-item list-group-item-action">修改客服组</a>
+                <a href="{% url '[udeskapi]:user_group5' %}" class="list-group-item list-group-item-action">删除客服组</a>
+            </div>
+        </div>
+        <div class="col-sm-9" style="border:solid 1px black">
+            {% block center_right_body %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

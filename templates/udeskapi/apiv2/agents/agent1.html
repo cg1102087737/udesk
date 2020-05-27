@@ -1,0 +1,89 @@
+{% extends "udeskapi/apiv2/agents/agents.html" %}
+{% block center_right_body %}
+    <div class="container mt-3">
+        <table>
+            <tr>
+                <td><h4>获取客服列表</h4></td>
+                <td>
+                    <span class="label-size label-color">{{ encrypt }}</span>
+                    <span class="label-size label-color">{{ request_type }}</span>
+                </td>
+            </tr>
+        </table>
+
+
+        <form method="post" action="{% url '[udeskapi]:agent1' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                {{ form.company_subdomain }}
+                <div class="input-group-append">
+                    <span class="input-group-text">.udesk.cn</span>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                {{ form.admin_email }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.open_api_token }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.page }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.per_page }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.with_disabled }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.timestamp }}
+            </div>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+
+    </div>
+    <div class="container mt-4">
+        <p>{{ requset_url }}</p>
+        <pre id="out_pre">{{ reponse }}</pre>
+        <button type="button" class="btn btn-primary" onclick="formatjson()">格式化</button>
+    </div>
+    <script type="text/javascript">
+
+        function formatjson() {
+            var json = JSON.stringify({{ reponse|safe }});
+            var json1 = json.replace(/'/g, '"');
+            var json2 = json1.replace(/None/g, '"None"');
+            var json3 = json2.replace(/False/g, '"False"');
+            var json4 = json3.replace(/True/g, '"True"');
+            var result = JSON.stringify(JSON.parse(json4), null, 4);//将字符串转换成json对象
+            document.getElementById('out_pre').innerText = result;
+
+        }
+
+    </script>
+    <style>
+        #out_pre {
+            width: 80%;
+            height: 500px;
+        }
+
+        pre {
+            display: block;
+            font-family: inherit;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            padding: 0;
+            margin: 0;
+            font-size: 15px;
+            line-height: inherit;
+            color: inherit;
+            word-break: break-all;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+        }
+
+    </style>
+{% endblock %}

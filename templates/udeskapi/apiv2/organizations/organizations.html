@@ -1,0 +1,19 @@
+{% extends "home.html" %}
+{% block center_body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group" style="max-height:700px;overflow-y:scroll">
+                <a href="{% url '[udeskapi]:organizations1' %}" class="list-group-item list-group-item-action">获取公司列表</a>
+                <a href="{% url '[udeskapi]:organizations2' %}" class="list-group-item list-group-item-action">获取公司详情</a>
+                <a href="#" class="list-group-item list-group-item-action">新建客服</a>
+                <a href="#" class="list-group-item list-group-item-action">修改客服</a>
+                <a href="#" class="list-group-item list-group-item-action">删除客服</a>
+                <a href="#" class="list-group-item list-group-item-action">获取角色列表</a>
+            </div>
+        </div>
+        <div class="col-sm-9" style="border:solid 1px black">
+            {% block center_right_body %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

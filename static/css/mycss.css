@@ -1,0 +1,27 @@
+.label-size {
+    text-align: center;
+    font-size: 10px;
+    border: 1px solid #a1a1a1;
+    margin: 5px 5px;
+    background: #dddddd;
+    line-height: 20px;
+    height: 20px;
+    width: 34px;
+    border-radius: 4px;
+    vertical-align: 1px;
+}
+
+.label-color {
+    color: #ffffff;
+    background: #1c7430;
+}
+
+.label-div {
+    width: auto;
+    height: 50px;
+    float:right;
+}
+
+td{
+    width: auto;
+}

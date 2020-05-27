@@ -1,0 +1,17 @@
+{% extends "home.html" %}
+{% block center_body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group" style="max-height:700px;overflow-y:scroll">
+                <a href="{% url '[udeskapi]:call4' %}" class="list-group-item list-group-item-action">发起网页回呼接口</a>
+                <a href="{% url '[udeskapi]:call5' %}" class="list-group-item list-group-item-action">获取呼叫中心中继号列表</a>
+                <a href="{% url '[udeskapi]:call6' %}" class="list-group-item list-group-item-action">获取客服呼叫中心状态</a>
+                <a href="{% url '[udeskapi]:call7' %}" class="list-group-item list-group-item-action">设置客服呼叫中心状态</a>
+            </div>
+        </div>
+        <div class="col-sm-9" style="border:solid 1px black">
+            {% block center_right_body %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

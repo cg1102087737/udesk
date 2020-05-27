@@ -1,0 +1,46 @@
+{% extends "udeskapi/apiv1/call/call.html" %}
+{% block center_right_body %}
+
+    <div class="container mt-3">
+        <table>
+            <tr>
+                <td><h4>坐席外呼</h4></td>
+                <td>
+                    <span class="label-size label-color">{{ encrypt }}</span>
+                    <span class="label-size label-color">{{ request_type }}</span>
+                </td>
+            </tr>
+        </table>
+        <p> 温馨提示：timestamp 与当前时间的误差不能超过5分钟 客服必须处于上线状态, 如果当前是IP话机模式，IP话机必须处于在线状态</p>
+        <form method="post" action="{% url '[udeskapi]:call1' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                {{ form.company_subdomain }}
+                <div class="input-group-append">
+                    <span class="input-group-text">.udesk.cn</span>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                {{ form.mishi }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.agent_email }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.callnumber }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.timetemp }}
+            </div>
+            <input type="submit" class="btn btn-primary"/>
+            <button onclick="f()" type="button"></button>
+        </form>
+        <p>{{ reponse }}</p>
+        <p>{{ requset_url }}</p>
+    </div>
+    <script>
+        function f() {
+            alert("1111111")
+        }
+    </script>
+{% endblock %}

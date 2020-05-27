@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Udesk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/mycss.css" type="text/css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <style>
+        nav {
+            background-color: #009688;
+        }
+
+        a {
+            color: #ffffff;
+            padding-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm">
+    <a class="navbar-brand" href="#">Udesk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown" id="li_1">
+                <a id="a_1" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    API v2(推荐)
+                </a>
+                <ul id="ul_1" class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:call4' %}">呼叫中心接口</a></li>
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:agent1' %}">客服接口</a></li>
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:user_group1' %}">客服组接口</a></li>
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:callcenter_analysis1' %}">呼叫中心客服组监控接口</a></li>
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:custom_fields1' %}">获取自定义字段接口</a></li>
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:organizations1' %}">客户公司接口</a></li>
+		    <li><a class="dropdown-item" href="{% url '[udeskapi]:customers3' %}">客户接口</a></li>
+                </ul>
+            </li>
+            <li id="li_2" class="nav-item dropdown">
+                <a id="a_2" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    API v1
+                </a>
+                <ul id="ul_2" class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url '[udeskapi]:call1' %}">呼叫中心接口</a></li>
+                    <li><a class="dropdown-item" href="#">Link 1</a></li>
+                    <li><a class="dropdown-item" href="#">Link 2</a></li>
+                    <li><a class="dropdown-item" href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li id="li_3" class="nav-item dropdown">
+                <a id="a_3" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    第三方对接
+                </a>
+                <div id="ul_3" class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <li id="li_4" class="nav-item dropdown">
+                <a id="a_4" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    工单
+                </a>
+                <div id="ul_4" class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid" style="margin-top:30px;height: 60%">
+    {% block center_body %}
+    {% endblock %}
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <p>底部内容</p>
+</div>
+<script>
+    window.onload = function () {
+        document.getElementById("li_1").onmouseenter = function () {
+            mouseEnter1()
+        };
+        document.getElementById("li_1").onmouseleave = function () {
+            mouseLeave1()
+        };
+        document.getElementById("li_2").onmouseenter = function () {
+            mouseEnter2()
+        };
+        document.getElementById("li_2").onmouseleave = function () {
+            mouseLeave2()
+        };
+        document.getElementById("li_3").onmouseenter = function () {
+            mouseEnter3()
+        };
+        document.getElementById("li_3").onmouseleave = function () {
+            mouseLeave3()
+        };
+        document.getElementById("li_4").onmouseenter = function () {
+            mouseEnter4()
+        };
+        document.getElementById("li_4").onmouseleave = function () {
+            mouseLeave4()
+        };
+
+        function mouseEnter1() {
+            var under = document.getElementById("ul_1")
+            under.style.display = 'block';
+        }
+
+        function mouseLeave1() {
+            var under = document.getElementById("ul_1")
+            var a = document.getElementById("a_1")
+            under.style.display = 'none';
+            a.style.background = '#009688';
+        }
+
+        function mouseEnter2() {
+            var under = document.getElementById("ul_2")
+            under.style.display = 'block';
+        }
+
+        function mouseLeave2() {
+            var under = document.getElementById("ul_2")
+            var a = document.getElementById("a_2")
+            under.style.display = 'none';
+            a.style.background = '#009688';
+        }
+
+        function mouseEnter3() {
+            var under = document.getElementById("ul_3")
+            under.style.display = 'block';
+        }
+
+        function mouseLeave3() {
+            var under = document.getElementById("ul_3")
+            var a = document.getElementById("a_3")
+            under.style.display = 'none';
+            a.style.background = '#009688';
+        }
+
+        function mouseEnter4() {
+            var under = document.getElementById("ul_4")
+            under.style.display = 'block';
+        }
+
+        function mouseLeave4() {
+            var under = document.getElementById("ul_4")
+            var a = document.getElementById("a_4")
+            under.style.display = 'none';
+            a.style.background = '#009688';
+        }
+    };
+</script>
+</body>
+</html>

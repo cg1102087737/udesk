@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block center_body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group" style="max-height:700px;overflow-y:scroll">
+                <a href="#" class="list-group-item list-group-item-action">获取客户列表</a>
+                <a href="#" class="list-group-item list-group-item-action">获取客户详情</a>
+                <a href="{% url '[udeskapi]:customers3' %}" class="list-group-item list-group-item-action">创建客户</a>
+            </div>
+        </div>
+        <div class="col-sm-9" style="border:solid 1px black">
+            {% block center_right_body %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
