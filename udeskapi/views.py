@@ -1317,3 +1317,7 @@ def cc_force_api(request):
 
 def ticket(request):
     return render(request, 'udeskapi/ticket/ticket.html')
+
+# -----------------------------------新增测试------------------------------------------#
+def ticket2(request):
+    return render(request, 'udeskapi/ticket/ticket.html')
