@@ -142,7 +142,7 @@ def call4(request):
         print(request_url)
         r = requests.post(request_url)
         return render(request, 'udeskapi/apiv2/callcenter/call4.html',
-                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'POST'})
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'POST' ,'sign_str':sign_str, 'sign':call_out_sign})
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
