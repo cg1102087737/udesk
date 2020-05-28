@@ -12,11 +12,12 @@ from .froms import call1Form, call2Form, call3Form, call4Form, call5Form, call6F
     callcenter_analysis4Form, custom_fields1Form, custom_fields2Form, organizations1Form, organizations2Form, organizations3Form, organizations4Form, organizations5Form, organizations6Form, customers3Form
 
 from django.http import HttpResponseRedirect
-from .encrypt import create_md5, create_SHA1
+from .encrypt import create_md5, create_SHA1 ,create_SHA256 ,createRandomString
 from .strChangelist import Change_Intlist
 import requests
 import json
 
+sign_version = 'v2'
 
 def home(request):
     return render(request, 'home.html')
@@ -132,14 +133,16 @@ def call4(request):
         from_number = request.POST['from_number']
         to_number = request.POST['to_number']
         timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
         ### 调用规则
-        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + ''
-        call_out_sign = create_SHA1(sign_str)
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/web_callback?from_number=' + from_number + '&to_number=' + to_number + '&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + call_out_sign + ''
+        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + '&'+ nonce +'&'+ sign_version +''
+        call_out_sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/web_callback?from_number=' + from_number + '&to_number=' + to_number + '&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + call_out_sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        print(sign_str)
         print(request_url)
         r = requests.post(request_url)
         return render(request, 'udeskapi/apiv2/callcenter/call4.html',
-                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA1', 'request_type':'POST'})
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'POST'})
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
@@ -149,7 +152,7 @@ def call4(request):
         # if a GET (or any other method) we'll create a blank form
     else:
         form = call4Form()
-    return render(request, 'udeskapi/apiv2/callcenter/call4.html', {'form': form, 'encrypt':'SHA1', 'request_type':'POST'})
+    return render(request, 'udeskapi/apiv2/callcenter/call4.html', {'form': form, 'encrypt':'SHA256', 'request_type':'POST'})
 
 
 def call5(request):
