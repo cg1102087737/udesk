@@ -164,16 +164,17 @@ def call5(request):
         open_api_token = request.POST['open_api_token']
         admin_email = request.POST['admin_email']
         timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
         ### 调用规则
-        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + ''
+        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + '&'+ nonce +'&'+ sign_version +''
         print(sign_str)
-        sign = create_SHA1(sign_str)
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/callout_number_list?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/callout_number_list?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
         print(request_url)
         r = requests.get(request_url)
         print(r)
         return render(request, 'udeskapi/apiv2/callcenter/call5.html',
-                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA1', 'request_type':'GET'})
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
@@ -183,7 +184,7 @@ def call5(request):
         # if a GET (or any other method) we'll create a blank form
     else:
         form = call5Form()
-    return render(request, 'udeskapi/apiv2/callcenter/call5.html', {'form': form, 'encrypt':'SHA1', 'request_type':'GET'})
+    return render(request, 'udeskapi/apiv2/callcenter/call5.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
 
 
 def call6(request):
@@ -196,13 +197,14 @@ def call6(request):
         open_api_token = request.POST['open_api_token']
         admin_email = request.POST['admin_email']
         timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
         ### 调用规则
-        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + ''
-        sign = create_SHA1(sign_str)
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/agent_state?agent_email=' + agent_email + '&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + ''
+        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + '&'+ nonce +'&'+ sign_version +''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/agent_state?agent_email=' + agent_email + '&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
         r = requests.get(request_url)
         return render(request, 'udeskapi/apiv2/callcenter/call6.html',
-                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA1', 'request_type':'GET'})
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET','sign_str':sign_str, 'sign':sign})
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
@@ -212,7 +214,7 @@ def call6(request):
         # if a GET (or any other method) we'll create a blank form
     else:
         form = call6Form()
-    return render(request, 'udeskapi/apiv2/callcenter/call6.html', {'form': form, 'encrypt':'SHA1', 'request_type':'GET'})
+    return render(request, 'udeskapi/apiv2/callcenter/call6.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
 
 
 def call7(request):
@@ -226,13 +228,14 @@ def call7(request):
         open_api_token = request.POST['open_api_token']
         admin_email = request.POST['admin_email']
         timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
         ### 调用规则
-        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + ''
-        sign = create_SHA1(sign_str)
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/agent_state?agent_email=' + agent_email + '&agent_work_state=' + agent_work_state + '&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + ''
+        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + '&'+ nonce +'&'+ sign_version +''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/callcenter/agent_state?agent_email=' + agent_email + '&agent_work_state=' + agent_work_state + '&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
         r = requests.post(request_url)
         return render(request, 'udeskapi/apiv2/callcenter/call7.html',
-                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA1', 'request_type':'POST'})
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'POST','sign_str':sign_str, 'sign':sign})
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
@@ -242,7 +245,7 @@ def call7(request):
         # if a GET (or any other method) we'll create a blank form
     else:
         form = call7Form()
-    return render(request, 'udeskapi/apiv2/callcenter/call7.html', {'form': form, 'encrypt':'SHA1', 'request_type':'POST'})
+    return render(request, 'udeskapi/apiv2/callcenter/call7.html', {'form': form, 'encrypt':'SHA256', 'request_type':'POST'})
 
 
 def call8(request):
