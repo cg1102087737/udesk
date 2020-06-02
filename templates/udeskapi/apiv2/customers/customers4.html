@@ -3,7 +3,7 @@
     <div class="container mt-3">
         <table>
             <tr>
-                <td><h4>获取客户列表</h4></td>
+                <td><h4>获取客户详情</h4></td>
                 <td>
                     <span class="label-size label-color">{{ encrypt }}</span>
                     <span class="label-size label-color">{{ request_type }}</span>
@@ -12,7 +12,7 @@
         </table>
 
 
-        <form method="post" action="{% url '[udeskapi]:customers3' %}" enctype="multipart/form-data">
+        <form method="post" action="{% url '[udeskapi]:customers4' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="input-group mb-3">
                 {{ form.company_subdomain }}
@@ -30,10 +30,10 @@
                 {{ form.timestamp }}
             </div>
             <div class="input-group mb-3">
-                {{ form.page }}
+                {{ form.type }}
             </div>
             <div class="input-group mb-3">
-                {{ form.page_size }}
+                {{ form.content }}
             </div>
             <input type="submit" class="btn btn-primary"/>
         </form>

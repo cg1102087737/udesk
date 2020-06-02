@@ -48,6 +48,7 @@ urlpatterns = [
     path('organizations5/', views.organizations5, name='organizations5'),
     path('organizations6/', views.organizations6, name='organizations6'),
     path('customers3/', views.customers3, name='customers3'),
+    path('customers4/', views.customers4, name='customers4'),
 
 ]
 urlpatterns += staticfiles_urlpatterns()
