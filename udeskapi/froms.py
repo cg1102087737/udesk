@@ -726,3 +726,49 @@ class customers4Form(forms.Form):
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '条件类型'}))
     content = forms.CharField(label='条件内容', max_length=100,
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '条件内容'}))
+
+class customers5Form(forms.Form):
+    company_subdomain = forms.CharField(label='二级域名', max_length=100,
+                                        widget=forms.TextInput(
+                                            attrs={'class': 'form-control', 'placeholder': '二级域名'}))
+    admin_email = forms.CharField(label='管理员邮箱', max_length=100,
+                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '管理员邮箱'}))
+    open_api_token = forms.CharField(label='open_api_token', max_length=100,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'open_api_token'}))
+    timestamp = forms.CharField(label='时间戳', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '时间戳'}))
+    nick_name = forms.CharField(label='姓名', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '姓名'}))
+
+class customers6Form(forms.Form):
+    company_subdomain = forms.CharField(label='二级域名', max_length=100,
+                                        widget=forms.TextInput(
+                                            attrs={'class': 'form-control', 'placeholder': '二级域名'}))
+    admin_email = forms.CharField(label='管理员邮箱', max_length=100,
+                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '管理员邮箱'}))
+    open_api_token = forms.CharField(label='open_api_token', max_length=100,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'open_api_token'}))
+    timestamp = forms.CharField(label='时间戳', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '时间戳'}))
+    type = forms.CharField(label='条件类型', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '条件类型'}))
+    content = forms.CharField(label='条件内容', max_length=100,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '条件内容'}))
+    nick_name = forms.CharField(label='姓名', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '姓名'}))
+
+class customers7Form(forms.Form):
+    company_subdomain = forms.CharField(label='二级域名', max_length=100,
+                                        widget=forms.TextInput(
+                                            attrs={'class': 'form-control', 'placeholder': '二级域名'}))
+    admin_email = forms.CharField(label='管理员邮箱', max_length=100,
+                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '管理员邮箱'}))
+    open_api_token = forms.CharField(label='open_api_token', max_length=100,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'open_api_token'}))
+    timestamp = forms.CharField(label='时间戳', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '时间戳'}))
+    nick_name = forms.CharField(label='姓名', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '姓名'}))
