@@ -9,7 +9,7 @@ from .froms import call1Form, call2Form, call3Form, call4Form, call5Form, call6F
     call10Form, call11Form, call12Form, call13Form, call14Form, call15Form, call16Form, agent1Form, agent2Form, \
     agent3Form, agent4Form, agent5Form, agent6Form, user_group1Form, user_group2Form, user_group3Form, user_group4Form, \
     user_group5Form, callcenter_analysis1Form, callcenter_analysis2Form, callcenter_analysis3Form, \
-    callcenter_analysis4Form, custom_fields1Form, custom_fields2Form, organizations1Form, organizations2Form, organizations3Form, organizations4Form, organizations5Form, organizations6Form, customers3Form, customers4Form, customers5Form, customers6Form, customers7Form
+    callcenter_analysis4Form, custom_fields1Form, custom_fields2Form, organizations1Form, organizations2Form, organizations3Form, organizations4Form, organizations5Form, organizations6Form, customers3Form, customers4Form, customers5Form, customers6Form, customers7Form, customers8Form, customers9Form, customers10Form, customers11Form, customers12Form
 
 from django.http import HttpResponseRedirect
 from .encrypt import create_md5, create_SHA1 ,create_SHA256 ,createRandomString
@@ -1411,20 +1411,51 @@ def customers6(request):
 def customers7(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = customers5Form(request.POST)
+        form = customers7Form(request.POST)
         ### 参数
         company_subdomain = request.POST['company_subdomain']
         admin_email = request.POST['admin_email']
         open_api_token = request.POST['open_api_token']
         timestamp = request.POST['timestamp']
-        nick_name = request.POST['nick_name']
+        type = request.POST['type']
+        content = request.POST['content']
         nonce = createRandomString(6)
         ### 调用规则
         sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
         sign = create_SHA256(sign_str)
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/get_customer?type='+type+'&content='+content+'&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/destroy_customer?type='+type+'&content='+content+'&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        r = requests.delete(request_url)
+        return render(request, 'udeskapi/apiv2/customers/customers7.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'DELETE' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = customers7Form()
+    return render(request, 'udeskapi/apiv2/customers/customers7.html', {'form': form, 'encrypt':'SHA256', 'request_type':'DELETE'})
+
+def customers8(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = customers8Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        type = request.POST['type']
+        content = request.POST['content']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/feeds?type='+type+'&content='+content+'&email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
         r = requests.get(request_url)
-        return render(request, 'udeskapi/apiv2/customers/customers5.html',
+        return render(request, 'udeskapi/apiv2/customers/customers8.html',
                       {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -1434,8 +1465,36 @@ def customers7(request):
 
         # if a GET (or any other method) we'll create a blank form
     else:
-        form = customers5Form()
-    return render(request, 'udeskapi/apiv2/customers/customers5.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
+        form = customers8Form()
+    return render(request, 'udeskapi/apiv2/customers/customers8.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
+
+def customers9(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = customers9Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/filters?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        r = requests.get(request_url)
+        return render(request, 'udeskapi/apiv2/customers/customers9.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = customers9Form()
+    return render(request, 'udeskapi/apiv2/customers/customers9.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
 # -----------------------------------callcenter-end------------------------------------------#
 
 

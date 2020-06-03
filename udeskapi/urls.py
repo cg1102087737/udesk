@@ -52,6 +52,11 @@ urlpatterns = [
     path('customers5/', views.customers5, name='customers5'),
     path('customers6/', views.customers6, name='customers6'),
     path('customers7/', views.customers7, name='customers7'),
+    path('customers8/', views.customers8, name='customers8'),
+    path('customers9/', views.customers9, name='customers9'),
+    # path('customers10/', views.customers10, name='customers10'),
+    # path('customers11/', views.customers11, name='customers11'),
+    # path('customers12/', views.customers12, name='customers12'),
 
 ]
 urlpatterns += staticfiles_urlpatterns()

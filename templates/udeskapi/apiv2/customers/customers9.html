@@ -1,0 +1,44 @@
+{% extends "udeskapi/apiv2/customers/customers.html" %}
+{% block center_right_body %}
+    <div class="container mt-3">
+        <table>
+            <tr>
+                <td><h4>获取客户过滤器列表</h4></td>
+                <td>
+                    <span class="label-size label-color">{{ encrypt }}</span>
+                    <span class="label-size label-color">{{ request_type }}</span>
+                </td>
+            </tr>
+        </table>
+
+
+        <form method="post" action="{% url '[udeskapi]:customers9' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                {{ form.company_subdomain }}
+                <div class="input-group-append">
+                    <span class="input-group-text">.udesk.cn</span>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                {{ form.admin_email }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.open_api_token }}
+            </div>
+            <div class="input-group mb-3">
+                {{ form.timestamp }}
+            </div>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+        <p>sign字符串：</p>
+        <pre class="pre-scrollable">{{ sign_str }}</pre>
+        <p>sign计算结果：</p>
+        <pre class="pre-scrollable">{{ sign }}</pre>
+        <p>最终请求URL：</p>
+        <pre class="pre-scrollable">{{ requset_url }}</pre>
+        <p>请求结果：</p>
+        <pre class="pre-scrollable">{{ reponse }}</pre>
+    </div>
+
+{% endblock %}
