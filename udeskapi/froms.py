@@ -814,6 +814,8 @@ class customers10Form(forms.Form):
                                          attrs={'class': 'form-control', 'placeholder': 'open_api_token'}))
     timestamp = forms.CharField(label='时间戳', max_length=100,
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '时间戳'}))
+    nick_name = forms.CharField(label='姓名', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '姓名'}))
 
 class customers11Form(forms.Form):
     company_subdomain = forms.CharField(label='二级域名', max_length=100,
@@ -828,6 +830,19 @@ class customers11Form(forms.Form):
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '时间戳'}))
 
 class customers12Form(forms.Form):
+    company_subdomain = forms.CharField(label='二级域名', max_length=100,
+                                        widget=forms.TextInput(
+                                            attrs={'class': 'form-control', 'placeholder': '二级域名'}))
+    admin_email = forms.CharField(label='管理员邮箱', max_length=100,
+                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '管理员邮箱'}))
+    open_api_token = forms.CharField(label='open_api_token', max_length=100,
+                                     widget=forms.TextInput(
+                                         attrs={'class': 'form-control', 'placeholder': 'open_api_token'}))
+    timestamp = forms.CharField(label='时间戳', max_length=100,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '时间戳'}))
+
+
+class notes3Form(forms.Form):
     company_subdomain = forms.CharField(label='二级域名', max_length=100,
                                         widget=forms.TextInput(
                                             attrs={'class': 'form-control', 'placeholder': '二级域名'}))

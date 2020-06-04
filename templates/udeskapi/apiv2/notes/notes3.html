@@ -1,9 +1,9 @@
-{% extends "udeskapi/apiv2/customers/customers.html" %}
+{% extends "udeskapi/apiv2/notes/notes.html" %}
 {% block center_right_body %}
     <div class="container mt-3">
         <table>
             <tr>
-                <td><h4>客户批量导入</h4></td>
+                <td><h4>获取业务记录列表</h4></td>
                 <td>
                     <span class="label-size label-color">{{ encrypt }}</span>
                     <span class="label-size label-color">{{ request_type }}</span>
@@ -12,7 +12,7 @@
         </table>
 
 
-        <form method="post" action="{% url '[udeskapi]:customers10' %}" enctype="multipart/form-data">
+        <form method="post" action="{% url '[udeskapi]:notes3' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="input-group mb-3">
                 {{ form.company_subdomain }}
@@ -28,9 +28,6 @@
             </div>
             <div class="input-group mb-3">
                 {{ form.timestamp }}
-            </div>
-            <div class="input-group mb-3">
-                {{ form.nick_name }}
             </div>
             <input type="submit" class="btn btn-primary"/>
         </form>
