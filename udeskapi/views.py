@@ -10,7 +10,7 @@ from .froms import call1Form, call2Form, call3Form, call4Form, call5Form, call6F
     agent3Form, agent4Form, agent5Form, agent6Form, user_group1Form, user_group2Form, user_group3Form, user_group4Form, \
     user_group5Form, callcenter_analysis1Form, callcenter_analysis2Form, callcenter_analysis3Form, \
     callcenter_analysis4Form, custom_fields1Form, custom_fields2Form, organizations1Form, organizations2Form, organizations3Form, organizations4Form, organizations5Form, organizations6Form, customers3Form, customers4Form, customers5Form, customers6Form, customers7Form, customers8Form, customers9Form, customers10Form, customers11Form, customers12Form, \
-    notes3Form
+    notes1Form, notes2Form, notes3Form, notes4Form, notes5Form, notes6Form
 
 from django.http import HttpResponseRedirect
 from .encrypt import create_md5, create_SHA1 ,create_SHA256 ,createRandomString
@@ -449,6 +449,44 @@ def call15(request):
     return render(request, 'udeskapi/apiv1/call/call15.html', {'form': form, 'encrypt':'MD5', 'request_type':'POST'})
 
 
+# def call16(request):
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = call16Form(request.POST)
+#         ### 参数
+#         company_subdomain = request.POST['company_subdomain']
+#         admin_email = request.POST['admin_email']
+#         agent_email = request.POST['agent_email']
+#         timestamp = request.POST['timestamp']
+#         open_api_token = request.POST['open_api_token']
+#         ### 调用规则
+#         sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + ''
+#         sign = create_SHA1(sign_str)
+#
+#         request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/get_agent_token'
+#         payload = {
+#             "email": admin_email,
+#             "agent_email": agent_email,
+#             "timestamp": timestamp,
+#             "sign": sign
+#         }
+#         headers = {'content-type': 'application/json', 'open_api_token': open_api_token}
+#         r = requests.post(request_url, data=json.dumps(payload), headers=headers)
+#         data11 = json.dumps(payload)
+#         print(data11)
+#         return render(request, 'udeskapi/apiv1/call/call16.html',
+#                       {'form': form, 'reponse': r.json(), 'requset_url': data11, 'encrypt':'SHA1', 'request_type':'POST'})
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             # ...
+#             # redirect to a new URL:
+#             return HttpResponseRedirect('/thanks/')
+#
+#         # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = call16Form()
+#     return render(request, 'udeskapi/apiv1/call/call16.html', {'form': form, 'encrypt':'SHA1', 'request_type':'POST'})
+
 def call16(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -459,21 +497,18 @@ def call16(request):
         agent_email = request.POST['agent_email']
         timestamp = request.POST['timestamp']
         open_api_token = request.POST['open_api_token']
+        nonce = createRandomString(6)
         ### 调用规则
-        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + ''
-        sign = create_SHA1(sign_str)
-
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/get_agent_token'
+        sign_str = '' + admin_email + '&' + open_api_token + '&' + timestamp + '&'+nonce+'&'+sign_version+''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/get_agent_token?email='+admin_email+'&timestamp='+timestamp+'&nonce='+nonce+'&sign='+sign+'&sign_version='+sign_version+''
         payload = {
-            "email": admin_email,
-            "agent_email": agent_email,
-            "timestamp": timestamp,
-            "sign": sign
+            "agent_email": agent_email
         }
         headers = {'content-type': 'application/json', 'open_api_token': open_api_token}
         r = requests.post(request_url, data=json.dumps(payload), headers=headers)
         data11 = json.dumps(payload)
-        print(data11)
+        print(request_url)
         return render(request, 'udeskapi/apiv1/call/call16.html',
                       {'form': form, 'reponse': r.json(), 'requset_url': data11, 'encrypt':'SHA1', 'request_type':'POST'})
         if form.is_valid():
@@ -1545,22 +1580,12 @@ def customers11(request):
         admin_email = request.POST['admin_email']
         open_api_token = request.POST['open_api_token']
         timestamp = request.POST['timestamp']
-        nick_name = request.POST['nick_name']
         nonce = createRandomString(6)
         ### 调用规则
         sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
         sign = create_SHA256(sign_str)
-        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/notes?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
-        payload = {
-            "customers":[
-                {
-                    "nick_name": nick_name,
-                    "emails": ["customer2@sample.com", "customer2@qq.com"]
-                }
-            ]
-        }
-        headers = {'content-type': 'application/json'}
-        r = requests.get(request_url, data=json.dumps(payload), headers=headers)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/export?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        r = requests.get(request_url)
         return render(request, 'udeskapi/apiv2/customers/customers11.html',
                       {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
         if form.is_valid():
@@ -1573,6 +1598,143 @@ def customers11(request):
     else:
         form = customers11Form()
     return render(request, 'udeskapi/apiv2/customers/customers11.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
+
+def customers11(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = customers11Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/export?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        r = requests.get(request_url)
+        return render(request, 'udeskapi/apiv2/customers/customers11.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = customers11Form()
+    return render(request, 'udeskapi/apiv2/customers/customers11.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
+
+def customers12(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = customers12Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        from_type = request.POST['from_type']
+        from_content = request.POST['from_content']
+        to_type = request.POST['to_type']
+        to_content = request.POST['to_content']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/customers/merge?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        payload = {
+            "from_type": from_type,
+            "from_content": from_content,
+            "to_type": to_type,
+            "to_content": to_content
+        }
+        headers = {'content-type': 'application/json'}
+        r = requests.post(request_url, data=json.dumps(payload), headers=headers)
+        return render(request, 'udeskapi/apiv2/customers/customers12.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'POST' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = customers12Form()
+    return render(request, 'udeskapi/apiv2/customers/customers12.html', {'form': form, 'encrypt':'SHA256', 'request_type':'POST'})
+
+
+#获取业务记录模板
+def notes1(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = notes1Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/notes/note_template?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        r = requests.get(request_url)
+        return render(request, 'udeskapi/apiv2/notes/notes1.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = notes1Form()
+    return render(request, 'udeskapi/apiv2/notes/notes1.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
+
+
+def notes2(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = notes2Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        id = request.POST['id']
+        name = request.POST['name']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/notes/update_note_template?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +''
+        payload = {
+            "id": id,
+            "name": name,
+            "fields": [
+                {"field_id":3, "field_type":"TextField"}
+            ]
+        }
+        headers = {'content-type': 'application/json'}
+        r = requests.post(request_url, data=json.dumps(payload), headers=headers)
+        return render(request, 'udeskapi/apiv2/notes/notes2.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'POST' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = notes2Form()
+    return render(request, 'udeskapi/apiv2/notes/notes2.html', {'form': form, 'encrypt':'SHA256', 'request_type':'POST'})
+
 
 #获取业务记录列表
 def notes3(request):
@@ -1602,6 +1764,35 @@ def notes3(request):
     else:
         form = notes3Form()
     return render(request, 'udeskapi/apiv2/notes/notes3.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
+
+def notes4(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = notes4Form(request.POST)
+        ### 参数
+        company_subdomain = request.POST['company_subdomain']
+        admin_email = request.POST['admin_email']
+        open_api_token = request.POST['open_api_token']
+        timestamp = request.POST['timestamp']
+        note_id = request.POST['note_id']
+        nonce = createRandomString(6)
+        ### 调用规则
+        sign_str = ''+admin_email+'&' + open_api_token + '&' + timestamp + '&' + nonce + '&' + sign_version + ''
+        sign = create_SHA256(sign_str)
+        request_url = 'https://' + company_subdomain + '.udesk.cn/open_api_v1/notes/detail?email=' + admin_email + '&timestamp=' + timestamp + '&sign=' + sign + '&nonce='+ nonce +'&sign_version='+ sign_version +'&note_id='+ note_id +''
+        r = requests.get(request_url)
+        return render(request, 'udeskapi/apiv2/notes/notes4.html',
+                      {'form': form, 'reponse': r.json(), 'requset_url': request_url, 'encrypt':'SHA256', 'request_type':'GET' ,'sign_str':sign_str, 'sign':sign})
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = notes4Form()
+    return render(request, 'udeskapi/apiv2/notes/notes4.html', {'form': form, 'encrypt':'SHA256', 'request_type':'GET'})
 # -----------------------------------callcenter-end------------------------------------------#
 
 
