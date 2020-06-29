@@ -510,7 +510,7 @@ def call16(request):
         data11 = json.dumps(payload)
         print(request_url)
         return render(request, 'udeskapi/apiv1/call/call16.html',
-                      {'form': form, 'reponse': r.json(), 'requset_url': data11, 'encrypt':'SHA1', 'request_type':'POST'})
+                      {'form': form, 'reponse': r.json(), 'requset_url': data11, 'encrypt':'SHA256', 'request_type':'POST'})
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
